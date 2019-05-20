@@ -1,6 +1,13 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
 
+const CardContainer = styled.div`
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+`;
+
+
 const Card = styled.figure`
   background-color: #fff;
   overflow: hidden;
@@ -23,7 +30,7 @@ const CardTitle = styled.h3`
 `;
 
 const CardDescription = styled.p`
-    color: blue;
+
 `;
 
 const CardImage = styled.img`
@@ -33,4 +40,4 @@ const CardImage = styled.img`
 `;
 
 
-export {Card, CardTitle, CardDescription, CardImage};
+export {CardContainer, Card, CardTitle, CardDescription, CardImage};

@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Card, CardTitle, CardDescription, CardImage } from './EpisodeCard';
+import { CardContainer, Card, CardTitle, CardDescription, CardImage } from './EpisodeCard';
 
 
 class Radio extends Component {
@@ -39,15 +39,17 @@ class Radio extends Component {
                 ) : (
                     this.state.episodes.map(episode => {
                         return (
-                            <Card>
-                                <CardTitle>
-                                    {episode.title}
-                                </CardTitle>
-                                <CardDescription>
-                                    {episode.description}
-                                </CardDescription>
-                                <CardImage src={episode.imageurltemplate} />
-                            </Card>
+                            <CardContainer>
+                                <Card>
+                                    <CardTitle>
+                                        {episode.title}
+                                    </CardTitle>
+                                    <CardDescription>
+                                        {episode.description}
+                                    </CardDescription>
+                                    <CardImage src={episode.imageurltemplate} />
+                                </Card>
+                            </CardContainer>
                         )
                     })
                 )
