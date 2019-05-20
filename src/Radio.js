@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import { Card, CardTitle, CardDescription, CardImage } from './EpisodeCard';
+
 
 class Radio extends Component {
     constructor() {
         super();
         this.state = {
-            groupId: '',
-            groupTitle: '',
-            groupDescription: '',
+            groupId: null,
+            groupTitle: null,
+            groupDescription: null,
             episodes: []
         };
     }
@@ -28,7 +30,29 @@ class Radio extends Component {
     render() {
         console.log(this.state);
         return (
-            <h1> {this.state.groupTitle} </h1>
+            <div>
+                <h1> {this.state.groupTitle} </h1>
+                <p> {this.state.groupDescription} </p>
+
+                {this.state.groupId == null ? (
+                    <p>Laddar.....</p>
+                ) : (
+                    this.state.episodes.map(episode => {
+                        return (
+                            <Card>
+                                <CardTitle>
+                                    {episode.title}
+                                </CardTitle>
+                                <CardDescription>
+                                    {episode.description}
+                                </CardDescription>
+                                <CardImage src={episode.imageurltemplate} />
+                            </Card>
+                        )
+                    })
+                )
+                }
+            </div>
         );
     }
 }
