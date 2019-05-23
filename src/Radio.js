@@ -1,7 +1,15 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { CardContainer, Card, CardTitle, CardDescription, CardImage } from './EpisodeCard';
+import { CardContainer, Card, CardTitle, CardDescription, CardImage, CardPlayIcon } from './EpisodeCard';
+import styled from 'styled-components';
 
+const RadioGroupHeader = styled.h1`
+    text-align: center;
+`;
+
+const RadioGroupDescription = styled.p`
+    text-align: center;
+`;
 
 class Radio extends Component {
     constructor() {
@@ -15,7 +23,7 @@ class Radio extends Component {
     }
 
     componentDidMount() {
-        axios.get('http://api.sr.se/api/v2/episodes/group?id=23037&format=json')
+        axios.get('http://api.sr.se/api/v2/episodes/group?id=23039&format=json')
         .then((response) => {
           this.setState({
             groupId: response.data.episodegroup.id,
@@ -31,29 +39,30 @@ class Radio extends Component {
         console.log(this.state);
         return (
             <div>
-                <h1> {this.state.groupTitle} </h1>
-                <p> {this.state.groupDescription} </p>
+                <RadioGroupHeader> {this.state.groupTitle} </RadioGroupHeader>
+                <RadioGroupDescription> {this.state.groupDescription} </RadioGroupDescription>
 
-                {this.state.groupId == null ? (
-                    <p>Laddar.....</p>
-                ) : (
-                    this.state.episodes.map(episode => {
-                        return (
-                            <CardContainer>
+                <CardContainer>
+                    {this.state.groupId == null ? (
+                        <p>Laddar.....</p>
+                    ) : (
+                        this.state.episodes.map(episode => {
+                            return (
                                 <Card>
                                     <CardTitle>
                                         {episode.title}
+                                    <CardPlayIcon href={episode.url} className="fas fa-play-circle" />
                                     </CardTitle>
+                                    <CardImage src={episode.imageurltemplate} />
                                     <CardDescription>
                                         {episode.description}
                                     </CardDescription>
-                                    <CardImage src={episode.imageurltemplate} />
                                 </Card>
-                            </CardContainer>
-                        )
-                    })
-                )
-                }
+                            )
+                        })
+                    )
+                    }
+                </CardContainer>
             </div>
         );
     }
