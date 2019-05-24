@@ -7,15 +7,17 @@ import RadioHeader from './RadioHeader';
 const groupIds = [23030, 23031, 23032, 23033, 23034, 23035, 23036, 23037, 23038, 23039, 23040, 23041, 23042, 23043, 23047, 23060];
 
 const RadioGroupHeader = styled.h2`
+    // Logo and Radio-icon
     text-align: center;
 `;
 
 const RadioGroupDescription = styled.p`
+    // Description of the radio Group
     text-align: center;
 `;
 
 const Button = styled.button`
-    /* Adapt the colors based on primary prop */
+    /* Button that randomize radio groups */
     background: ${props => props.primary ? "palevioletred" : "white"};
     color: ${props => props.primary ? "white" : "palevioletred"};
 
@@ -26,7 +28,10 @@ const Button = styled.button`
     border-radius: 3px;
 `;
 
-
+const Section = styled.div`
+    // Section contains everything above radio-cards
+    text-align:center; // Centers all content above cards
+`;
 
 class Radio extends Component {
   constructor() {
@@ -62,10 +67,13 @@ class Radio extends Component {
   render() {
     return (
       <div>
-        <RadioHeader />
-        <RadioGroupHeader> {this.state.groupTitle} </RadioGroupHeader>
-        <RadioGroupDescription> {this.state.groupDescription} </RadioGroupDescription>
-        <Button primary onClick={this.getRandomRadioGroup}>Primary</Button>
+        <Section>
+            <RadioHeader />
+            <RadioGroupHeader> {this.state.groupTitle} </RadioGroupHeader>
+            <RadioGroupDescription> {this.state.groupDescription} </RadioGroupDescription>
+            <Button primary onClick={this.getRandomRadioGroup}>Searchy-searchy!</Button>
+            {/* Localstorage list here! */}
+        </Section>
 
         <CardContainer>
           {this.state.groupId == null ? (

@@ -19,6 +19,11 @@ const HeaderContainer = styled.div`
 const RadioLogo = styled.img`
     width: 20%;
     height: auto;
+
+    @media only screen and (min-width: 480px) {
+        /* Tablet */
+        max-width: 125px;
+    }
 `;
 
 const RadioHeading = styled.h1`
