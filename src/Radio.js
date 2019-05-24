@@ -4,6 +4,8 @@ import { CardContainer, Card, CardTitle, CardDescription, CardImage, CardPlayIco
 import RandomizeBtn from './RandomizeBtn';
 import styled from 'styled-components';
 
+const groupIds = [23030, 23031, 23032, 23033, 23034, 23035, 23036, 23037, 23038, 23039, 23040, 23041, 23042, 23043, 23047, 23060];
+
 const RadioGroupHeader = styled.h1`
     text-align: center;
 `;
@@ -37,7 +39,7 @@ class Radio extends Component {
 
     // function för random grupp id ONLOAD
     
-    componentDidMount(groupId) {
+    componentDidMount() {
         /* Call API and update state */
         axios.get('http://api.sr.se/api/v2/episodes/group?id=23037&format=json')
         .then((response) => {
@@ -50,19 +52,18 @@ class Radio extends Component {
         });
     };
 
-
-    //     const Button = styled.button`
-    //     /* Adapt the colors based on primary prop */
-    //     background: ${props => props.primary ? "palevioletred" : "white"};
-    //     color: ${props => props.primary ? "white" : "palevioletred"};
-    
-    //     font-size: 1em;
-    //     margin: 1em;
-    //     padding: 0.25em 1em;
-    //     border: 2px solid palevioletred;
-    //     border-radius: 3px;
-    // `;
-
+    randomize = event => {
+        const randomId = groupIds[Math.floor(Math.random()*groupIds.length)];
+        axios.get(`http://api.sr.se/api/v2/episodes/group?id=${randomId}&format=json`)
+        .then((response) => {
+          this.setState({
+            groupId: response.data.episodegroup.id,
+            groupTitle: response.data.episodegroup.title,
+            groupDescription: response.data.episodegroup.description,
+            episodes: response.data.episodegroup.episodes
+          });
+        });
+    }
 
     render() {
         console.log(this.state);
@@ -73,7 +74,7 @@ class Radio extends Component {
 
                 {/* <!- Randomize button */ }
                 <div>
-                <Button primary>Primary</Button>
+                <Button primary onClick={this.randomize}>Primary</Button>
                 </div>
 
 
