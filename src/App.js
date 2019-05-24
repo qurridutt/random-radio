@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const AppContainer = styled.div`
     font-family: 'Inter UI', sans-serif;
+    /* background-color: #fefefe; */
 `;
 
 export default function App() {

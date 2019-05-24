@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { CardContainer, Card, CardTitle, CardDescription, CardImage, CardPlayIcon } from './EpisodeCard';
 import styled from 'styled-components';
+import RadioHeader from './RadioHeader';
 
 const groupIds = [23030, 23031, 23032, 23033, 23034, 23035, 23036, 23037, 23038, 23039, 23040, 23041, 23042, 23043, 23047, 23060];
 
-const RadioGroupHeader = styled.h1`
+const RadioGroupHeader = styled.h2`
     text-align: center;
 `;
 
@@ -25,6 +26,8 @@ const Button = styled.button`
     border-radius: 3px;
 `;
 
+
+
 class Radio extends Component {
   constructor() {
     super();
@@ -32,24 +35,16 @@ class Radio extends Component {
       groupId: null,
       groupTitle: null,
       groupDescription: null,
-      episodes: []
+      episodes: [],
     };
   }
 
   componentDidMount() {
     /* Call API and update state */
-    axios.get('http://api.sr.se/api/v2/episodes/group?id=23037&format=json')
-      .then((response) => {
-        this.setState({
-          groupId: response.data.episodegroup.id,
-          groupTitle: response.data.episodegroup.title,
-          groupDescription: response.data.episodegroup.description,
-          episodes: response.data.episodegroup.episodes
-        });
-      });
+    this.getRandomRadioGroup();
   };
 
-  randomize = event => {
+  getRandomRadioGroup = event => {
     /* Function that is called on click on randomize button
     Makes a new API-call and updates state with new values */
     const randomId = groupIds[Math.floor(Math.random() * groupIds.length)];
@@ -67,9 +62,10 @@ class Radio extends Component {
   render() {
     return (
       <div>
+        <RadioHeader />
         <RadioGroupHeader> {this.state.groupTitle} </RadioGroupHeader>
         <RadioGroupDescription> {this.state.groupDescription} </RadioGroupDescription>
-        <Button primary onClick={this.randomize}>Primary</Button>
+        <Button primary onClick={this.getRandomRadioGroup}>Primary</Button>
 
         <CardContainer>
           {this.state.groupId == null ? (

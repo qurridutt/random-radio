@@ -1,20 +1,9 @@
 import styled from 'styled-components';
 
 const CardContainer = styled.div`
-
-    @media only screen and (min-width: 480px) and (max-width: 1024px){
-    /* Tablet */
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
-    }
-
-  @media only screen and (min-width: 1025px) {
-    /* Desktop */
-    display: flex;
-    justify-content: center;
-    flex-wrap: wrap;
-    }
 `;
 
 
