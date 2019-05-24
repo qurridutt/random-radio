@@ -3,6 +3,7 @@ import axios from 'axios';
 import { CardContainer, Card, CardTitle, CardDescription, CardImage, CardPlayIcon } from './EpisodeCard';
 import styled from 'styled-components';
 import RadioHeader from './RadioHeader';
+import History from './History';
 
 const groupIds = [23030, 23031, 23032, 23033, 23034, 23035, 23036, 23037, 23038, 23039, 23040, 23041, 23042, 23043, 23047, 23060];
 
@@ -82,7 +83,6 @@ class Radio extends Component {
 
   addGroupToStorage = (title, id) => {
     let currentGroups = JSON.parse(localStorage.getItem("StoredGroups"));
-    console.log(currentGroups);
     if (currentGroups === null) {
       currentGroups = [];
     } else if (currentGroups.length == 5) {
@@ -98,6 +98,7 @@ class Radio extends Component {
   render() {
     return (
       <div>
+        <History />
         <Section>
             <RadioHeader />
             <RadioGroupHeader> {this.state.groupTitle} </RadioGroupHeader>
