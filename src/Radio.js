@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
 import { CardContainer, Card, CardTitle, CardDescription, CardImage, CardPlayIcon } from './EpisodeCard';
-import RandomizeBtn from './RandomizeBtn';
 import styled from 'styled-components';
 
 const groupIds = [23030, 23031, 23032, 23033, 23034, 23035, 23036, 23037, 23038, 23039, 23040, 23041, 23042, 23043, 23047, 23060];
@@ -36,8 +35,6 @@ class Radio extends Component {
             episodes: []
         };
     }
-
-    // function för random grupp id ONLOAD
     
     componentDidMount() {
         /* Call API and update state */
@@ -71,12 +68,7 @@ class Radio extends Component {
             <div>
                 <RadioGroupHeader> {this.state.groupTitle} </RadioGroupHeader>
                 <RadioGroupDescription> {this.state.groupDescription} </RadioGroupDescription>
-
-                {/* <!- Randomize button */ }
-                <div>
                 <Button primary onClick={this.randomize}>Primary</Button>
-                </div>
-
 
                 <CardContainer>
                     {this.state.groupId == null ? (
