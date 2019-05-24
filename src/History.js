@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import styled from 'styled-components';
+// import styled from 'styled-components';
 
 class History extends Component {
   constructor() {
@@ -19,7 +19,15 @@ class History extends Component {
     console.log(this.state.groupsInStorage);
     return(
       <div>
-        
+        {this.state.groupsInStorage.map(episode => {
+                return (
+                  <ul>
+                    <li>
+                      {episode.title}
+                    </li>
+                  </ul>
+                )
+              })}
       </div>
     );
   };

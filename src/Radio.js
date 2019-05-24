@@ -57,6 +57,7 @@ class Radio extends Component {
       groupTitle: null,
       groupDescription: null,
       episodes: [],
+      showHistory: false
     };
   }
 
@@ -77,15 +78,21 @@ class Radio extends Component {
           groupDescription: response.data.episodegroup.description,
           episodes: response.data.episodegroup.episodes
         });
+
         this.addGroupToStorage(response.data.episodegroup.title, response.data.episodegroup.id);
+
+        this.setState({
+          showHistory: false
+        });
       });
+
   }
 
   addGroupToStorage = (title, id) => {
     let currentGroups = JSON.parse(localStorage.getItem("StoredGroups"));
     if (currentGroups === null) {
       currentGroups = [];
-    } else if (currentGroups.length == 5) {
+    } else if (currentGroups.length === 5) {
       currentGroups.splice(0, 1);
     }
 
@@ -95,17 +102,30 @@ class Radio extends Component {
     localStorage.setItem("StoredGroups", JSON.stringify(currentGroups));
   }
 
+  toggleHistory = event => {
+    this.setState({
+      showHistory: !this.state.showHistory
+    });
+  }
+
   render() {
+    console.log(this.state.showHistory);
     return (
       <div>
-        <History />
         <Section>
             <RadioHeader />
             <RadioGroupHeader> {this.state.groupTitle} </RadioGroupHeader>
             <RadioGroupDescription> {this.state.groupDescription} </RadioGroupDescription>
             <Button primary onClick={this.getRandomRadioGroup}>NY RADIOSTATION</Button>
-            {/* Localstorage list here! */}
+            <i className={"fas fa-history"} onClick={this.toggleHistory} />
         </Section>
+
+      <div>
+        {this.state.showHistory === true ? (
+          <History />
+        ) : <p></p>
+        }
+      </div>
 
         <CardContainer>
           {this.state.groupId == null ? (
