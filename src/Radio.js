@@ -50,14 +50,15 @@ const Section = styled.div`
 `;
 
 class Radio extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       groupId: null,
       groupTitle: null,
       groupDescription: null,
       episodes: [],
-      showHistory: false
+      showHistory: false,
+      historyId: null
     };
   }
 
@@ -85,8 +86,9 @@ class Radio extends Component {
           showHistory: false
         });
       });
-
   }
+
+
 
   addGroupToStorage = (title, id) => {
     let currentGroups = JSON.parse(localStorage.getItem("StoredGroups"));
@@ -108,8 +110,14 @@ class Radio extends Component {
     });
   }
 
+  handleHistoryId = historyId => {
+    this.setState({
+      historyId: historyId
+    });
+  }
+
   render() {
-    console.log(this.state.showHistory);
+    console.log(this.state.historyId);
     return (
       <div>
         <Section>
@@ -122,7 +130,7 @@ class Radio extends Component {
 
       <div>
         {this.state.showHistory === true ? (
-          <History />
+          <History sendId={this.handleHistoryId} />
         ) : <p></p>
         }
       </div>

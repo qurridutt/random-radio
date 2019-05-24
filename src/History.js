@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 // import styled from 'styled-components';
 
 class History extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
 
     this.state = {
       groupsInStorage: []
@@ -15,14 +15,18 @@ class History extends Component {
     this.setState({groupsInStorage: storage});
   }
 
+  handleId = (id) => {
+    this.props.sendId(id);
+    console.log(id);
+  }
+
   render() {
-    console.log(this.state.groupsInStorage);
     return(
       <div>
         {this.state.groupsInStorage.map(episode => {
                 return (
                   <ul>
-                    <li>
+                    <li onClick={event => this.handleId(episode.id)}>
                       {episode.title}
                     </li>
                   </ul>
