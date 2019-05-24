@@ -26,74 +26,75 @@ const Button = styled.button`
 `;
 
 class Radio extends Component {
-    constructor() {
-        super();
-        this.state = {
-            groupId: null,
-            groupTitle: null,
-            groupDescription: null,
-            episodes: []
-        };
-    }
-    
-    componentDidMount() {
-        /* Call API and update state */
-        axios.get('http://api.sr.se/api/v2/episodes/group?id=23037&format=json')
-        .then((response) => {
-          this.setState({
-            groupId: response.data.episodegroup.id,
-            groupTitle: response.data.episodegroup.title,
-            groupDescription: response.data.episodegroup.description,
-            episodes: response.data.episodegroup.episodes
-          });
-        });
+  constructor() {
+    super();
+    this.state = {
+      groupId: null,
+      groupTitle: null,
+      groupDescription: null,
+      episodes: []
     };
+  }
 
-    randomize = event => {
-        const randomId = groupIds[Math.floor(Math.random()*groupIds.length)];
-        axios.get(`http://api.sr.se/api/v2/episodes/group?id=${randomId}&format=json`)
-        .then((response) => {
-          this.setState({
-            groupId: response.data.episodegroup.id,
-            groupTitle: response.data.episodegroup.title,
-            groupDescription: response.data.episodegroup.description,
-            episodes: response.data.episodegroup.episodes
-          });
+  componentDidMount() {
+    /* Call API and update state */
+    axios.get('http://api.sr.se/api/v2/episodes/group?id=23037&format=json')
+      .then((response) => {
+        this.setState({
+          groupId: response.data.episodegroup.id,
+          groupTitle: response.data.episodegroup.title,
+          groupDescription: response.data.episodegroup.description,
+          episodes: response.data.episodegroup.episodes
         });
-    }
+      });
+  };
 
-    render() {
-        console.log(this.state);
-        return (
-            <div>
-                <RadioGroupHeader> {this.state.groupTitle} </RadioGroupHeader>
-                <RadioGroupDescription> {this.state.groupDescription} </RadioGroupDescription>
-                <Button primary onClick={this.randomize}>Primary</Button>
+  randomize = event => {
+    /* Function that is called on click on randomize button
+    Makes a new API-call and updates state with new values */
+    const randomId = groupIds[Math.floor(Math.random() * groupIds.length)];
+    axios.get(`http://api.sr.se/api/v2/episodes/group?id=${randomId}&format=json`)
+      .then((response) => {
+        this.setState({
+          groupId: response.data.episodegroup.id,
+          groupTitle: response.data.episodegroup.title,
+          groupDescription: response.data.episodegroup.description,
+          episodes: response.data.episodegroup.episodes
+        });
+      });
+  }
 
-                <CardContainer>
-                    {this.state.groupId == null ? (
-                        <p>Laddar.....</p>
-                    ) : (
-                        this.state.episodes.map(episode => {
-                            return (
-                                <Card>
-                                    <CardTitle>
-                                        {episode.title}
-                                    <CardPlayIcon href={episode.url} className="fas fa-play-circle" />
-                                    </CardTitle>
-                                    <CardImage src={episode.imageurltemplate} />
-                                    <CardDescription>
-                                        {episode.description}
-                                    </CardDescription>
-                                </Card>
-                            )
-                        })
-                    )
-                    }
-                </CardContainer>
-            </div>
-        );
-    }
+  render() {
+    return (
+      <div>
+        <RadioGroupHeader> {this.state.groupTitle} </RadioGroupHeader>
+        <RadioGroupDescription> {this.state.groupDescription} </RadioGroupDescription>
+        <Button primary onClick={this.randomize}>Primary</Button>
+
+        <CardContainer>
+          {this.state.groupId == null ? (
+            <p>Laddar.....</p>
+          ) : (
+              this.state.episodes.map(episode => {
+                return (
+                  <Card>
+                    <CardTitle>
+                      {episode.title}
+                      <CardPlayIcon href={episode.url} className="fas fa-play-circle" />
+                    </CardTitle>
+                    <CardImage src={episode.imageurltemplate} />
+                    <CardDescription>
+                      {episode.description}
+                    </CardDescription>
+                  </Card>
+                )
+              })
+            )
+          }
+        </CardContainer>
+      </div>
+    );
+  }
 }
 
 export default Radio;

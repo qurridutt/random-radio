@@ -7,9 +7,9 @@ const AppContainer = styled.div`
 `;
 
 export default function App() {
-    return (
-        <AppContainer>
-            <Radio />
-        </AppContainer>
-    )
+  return (
+    <AppContainer>
+      <Radio />
+    </AppContainer>
+  )
 };
