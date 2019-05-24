@@ -25,7 +25,22 @@ const Button = styled.button`
     margin: 1em;
     padding: 0.25em 1em;
     border: 2px solid palevioletred;
-    border-radius: 3px;
+    height: 55px;
+    width: 80%;
+    border-radius: 5px;
+
+    transition: all .15s ease-out;
+	  box-shadow: 0 5px 20px -5px rgba(50,50,93,.12), 0 3px 4px -2px rgba(0,0,0,.08);
+
+    @media only screen and (min-width: 1025px) {
+    /* Desktop */
+    width: 30%;
+
+    &:hover {
+      transform: scale(1.05);
+      box-shadow: 0 30px 75px -15px rgba(50,50,93,.3), 0 25px 40px -20px rgba(0,0,0,.1);
+  	  } 
+    }
 `;
 
 const Section = styled.div`
@@ -61,30 +76,24 @@ class Radio extends Component {
           groupDescription: response.data.episodegroup.description,
           episodes: response.data.episodegroup.episodes
         });
-        this.updateLocalStorage(response.data.episodegroup.id, response.data.episodegroup.title);
+        this.addGroupToStorage(response.data.episodegroup.title, response.data.episodegroup.id);
       });
   }
 
-  updateLocalStorage (id, title) {
-    console.log("Title to LS: " + title);
-    console.log("ID to LS: " + id);
-
-
-    var oldGroups = localStorage.getItem("PreviousGroups");
-    if (oldGroups === null) {
-      oldGroups = [];
-    } else if (oldGroups.lenght > 5){
-      oldGroups.shift();
-    };
-
-    let previousGroup = [title, id]
-    var JSONpreviousGroup = JSON.stringify(previousGroup);
-    localStorage.setItem("PreviousGroups", oldGroups + JSONpreviousGroup);
-
-    for (var i = 0; i < localStorage.length; i++){
-        console.log(localStorage.getItem(localStorage.key(i)));
+  addGroupToStorage = (title, id) => {
+    let currentGroups = JSON.parse(localStorage.getItem("StoredGroups"));
+    console.log(currentGroups);
+    if (currentGroups === null) {
+      currentGroups = [];
+    } else if (currentGroups.length == 5) {
+      currentGroups.splice(0, 1);
     }
-  };
+
+    const radioGroupToPush = {title: title, id: id};
+
+    currentGroups.push(radioGroupToPush);
+    localStorage.setItem("StoredGroups", JSON.stringify(currentGroups));
+  }
 
   render() {
     return (
@@ -93,7 +102,7 @@ class Radio extends Component {
             <RadioHeader />
             <RadioGroupHeader> {this.state.groupTitle} </RadioGroupHeader>
             <RadioGroupDescription> {this.state.groupDescription} </RadioGroupDescription>
-            <Button primary onClick={this.getRandomRadioGroup}>Searchy-searchy!</Button>
+            <Button primary onClick={this.getRandomRadioGroup}>NY RADIOSTATION</Button>
             {/* Localstorage list here! */}
         </Section>
 
@@ -106,11 +115,11 @@ class Radio extends Component {
                   <Card>
                     <CardTitle>
                       {episode.title}
-                      <CardPlayIcon href={episode.url} className="fas fa-play-circle" />
                     </CardTitle>
                     <CardImage src={episode.imageurltemplate} />
                     <CardDescription>
                       {episode.description}
+                      <CardPlayIcon href={episode.url} className="fas fa-play-circle" />
                     </CardDescription>
                   </Card>
                 )

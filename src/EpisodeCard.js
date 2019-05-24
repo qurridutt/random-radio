@@ -61,8 +61,9 @@ const CardPlayIcon = styled.a`
   font-size: 3rem;
   color: black;
   text-decoration: none;
-  margin-bottom: 0px;
+  margin-bottom: 5px;
   float: right;
+  color: palevioletred;
 `;
 
 
