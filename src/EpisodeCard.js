@@ -19,15 +19,17 @@ const CardContainer = styled.div`
 
 
 const Card = styled.figure`
-  overflow: hidden;
+  /* overflow: hidden; */
+  display: table; /*Makes cards fit to content */
   border-radius: 5px;
   transition: all .15s ease-out;
 	box-shadow: 0 5px 20px -5px rgba(50,50,93,.12), 0 3px 4px -2px rgba(0,0,0,.08);
-  height: auto;
-  min-height: 350px;
+  /* height: auto; */
+  /* min-height: 350px; */
   width: 95%;
-  margin: 0;
+  /* margin: 0; */
   margin-bottom: 20px;
+  
   
   &:hover {
     transform: scale(1.05);
@@ -43,7 +45,6 @@ const Card = styled.figure`
 
   @media only screen and (min-width: 1025px) {
     /* Desktop */
-    
     width: 30%;
     margin: 20px;
     }
@@ -59,11 +60,11 @@ const CardDescription = styled.p`
 
 const CardImage = styled.img`
     width: 100%;
-    height: 30%;
+    height: 10%;
     object-fit: cover;
 
     @media only screen and (min-width: 1025px) {
-      height: 40%;
+      height: 10%;
     }
 `;
 
