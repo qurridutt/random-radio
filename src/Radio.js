@@ -61,8 +61,30 @@ class Radio extends Component {
           groupDescription: response.data.episodegroup.description,
           episodes: response.data.episodegroup.episodes
         });
+        this.updateLocalStorage(response.data.episodegroup.id, response.data.episodegroup.title);
       });
   }
+
+  updateLocalStorage (id, title) {
+    console.log("Title to LS: " + title);
+    console.log("ID to LS: " + id);
+
+
+    var oldGroups = localStorage.getItem("PreviousGroups");
+    if (oldGroups === null) {
+      oldGroups = [];
+    } else if (oldGroups.lenght > 5){
+      oldGroups.shift();
+    };
+
+    let previousGroup = [title, id]
+    var JSONpreviousGroup = JSON.stringify(previousGroup);
+    localStorage.setItem("PreviousGroups", oldGroups + JSONpreviousGroup);
+
+    for (var i = 0; i < localStorage.length; i++){
+        console.log(localStorage.getItem(localStorage.key(i)));
+    }
+  };
 
   render() {
     return (
