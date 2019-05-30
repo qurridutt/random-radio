@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { CardContainer, Card, CardTitle, CardDescription, CardImage, CardPlayIcon } from './EpisodeCard';
+import { CardContainer, Card, CardTitle, CardDescription, CardImage, CardPlayIcon, Button, HistoryIcon } from './Theme';
 import styled from 'styled-components';
 import RadioHeader from './RadioHeader';
 import History from './History';
@@ -8,45 +8,21 @@ import History from './History';
 const groupIds = [23030, 23031, 23032, 23033, 23034, 23035, 23036, 23037, 23038, 23039, 23040, 23041, 23042, 23043, 23047, 23060];
 
 const RadioGroupHeader = styled.h2`
-    // Logo and Radio-icon
     text-align: center;
 `;
 
 const RadioGroupDescription = styled.p`
-    // Description of the radio Group
     text-align: center;
 `;
 
-const Button = styled.button`
-    /* Button that randomize radio groups */
-    background: ${props => props.primary ? "palevioletred" : "white"};
-    color: ${props => props.primary ? "white" : "palevioletred"};
-
-    font-size: 1em;
-    margin: 1em;
-    padding: 0.25em 1em;
-    border: 2px solid palevioletred;
-    height: 55px;
-    width: 80%;
-    border-radius: 5px;
-
-    transition: all .15s ease-out;
-	  box-shadow: 0 5px 20px -5px rgba(50,50,93,.12), 0 3px 4px -2px rgba(0,0,0,.08);
-
-    @media only screen and (min-width: 1025px) {
-    /* Desktop */
-    width: 30%;
-
-    &:hover {
-      transform: scale(1.05);
-      box-shadow: 0 30px 75px -15px rgba(50,50,93,.3), 0 25px 40px -20px rgba(0,0,0,.1);
-  	  } 
-    }
+const Section = styled.div`
+    text-align:center;
 `;
 
-const Section = styled.div`
-    // Section contains everything above radio-cards
-    text-align:center; // Centers all content above cards
+const ButtonContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 class Radio extends Component {
@@ -133,16 +109,18 @@ class Radio extends Component {
   }
 
   render() {
-    console.log(this.state.historyId);
     return (
       <div>
         <Section>
             <RadioHeader />
             <RadioGroupHeader> {this.state.groupTitle} </RadioGroupHeader>
             <RadioGroupDescription> {this.state.groupDescription} </RadioGroupDescription>
-            <Button primary onClick={this.getRandomRadioGroup}>NY RADIOSTATION</Button>
-            <i className={"fas fa-history"} onClick={this.toggleHistory} />
         </Section>
+        <ButtonContainer>
+            <Button onClick={this.getRandomRadioGroup}>NY RADIOSTATION</Button>
+            <Button secondary onClick={this.toggleHistory}><HistoryIcon className={"fas fa-history"} /></Button>
+        </ButtonContainer>
+            
 
       <div>
         {this.state.showHistory === true ? (
@@ -164,7 +142,7 @@ class Radio extends Component {
                     <CardImage src={episode.imageurltemplate} />
                     <CardDescription>
                       {episode.description}
-                      <CardPlayIcon href={episode.url} className="fas fa-play-circle" />
+                      <CardPlayIcon href={episode.url} target="_blank" className="fas fa-play-circle" />
                     </CardDescription>
                   </Card>
                 )
