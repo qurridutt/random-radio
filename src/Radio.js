@@ -11,7 +11,6 @@ import {
 	PlayIcon
 } from "./Theme";
 import styled from "styled-components";
-import RadioHeader from "./RadioHeader";
 import History from "./History";
 
 // Group ID's are hardcoded because SR does not provide
@@ -145,7 +144,6 @@ class Radio extends Component {
 		return (
 			<div>
 				<Section>
-					<RadioHeader />
 					<RadioGroupHeader>
 						{this.state.groupTitle}
 					</RadioGroupHeader>
