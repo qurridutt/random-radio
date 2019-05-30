@@ -88,6 +88,24 @@ class Radio extends Component {
       });
   }
 
+  getSpecificRadioGroup = id => {
+    axios.get(`http://api.sr.se/api/v2/episodes/group?id=${id}&format=json`)
+      .then((response) => {
+        this.setState({
+          groupId: response.data.episodegroup.id,
+          groupTitle: response.data.episodegroup.title,
+          groupDescription: response.data.episodegroup.description,
+          episodes: response.data.episodegroup.episodes
+        });
+
+        this.addGroupToStorage(response.data.episodegroup.title, response.data.episodegroup.id);
+
+        this.setState({
+          showHistory: false
+        });
+      });
+  }
+
 
 
   addGroupToStorage = (title, id) => {
@@ -111,9 +129,7 @@ class Radio extends Component {
   }
 
   handleHistoryId = historyId => {
-    this.setState({
-      historyId: historyId
-    });
+    this.getSpecificRadioGroup(historyId);
   }
 
   render() {
